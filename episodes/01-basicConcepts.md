@@ -15,6 +15,7 @@ keypoints:
 - "Our workflow for an NLP project consists of designing, preprocessing, representation, running, creating output, and interpreting that output."
 - "NLP tasks can be adapted to suit different research interests."
 ---
+
 # Introduction
 
 ## What is Natural Language Processing?
@@ -108,8 +109,6 @@ With some experience with a task, let's get a broader overview of the types of t
     - <https://huggingface.co/tasks/question-answering>
 
 Briefly present a summary of some of the tasks you explored. What types of applications could you see this type of task used in? How might this be relevant to a research question you have? Summarize these tasks and present your findings to the group.
-
-{: .discussion}
 
 ### What tasks can NLP do?
 
