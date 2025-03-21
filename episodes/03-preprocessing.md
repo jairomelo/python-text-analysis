@@ -1,20 +1,24 @@
 ---
-title: "Preparing and Preprocessing Your Data"
+title: Preparing and Preprocessing Your Data
 teaching: 10
 exercises: 10
-questions:
-- "How can I prepare data for NLP?"
-- "What are tokenization, casing and lemmatization?"
-objectives:
-- "Load a test document into Spacy."
-- "Learn preprocessing tasks."
-keypoints:
-- "Tokenization breaks strings into smaller parts for analysis."
-- "Casing removes capital letters."
-- "Stopwords are common words that do not contain much useful information."
-- "Lemmatization reduces words to their root form."
 ---
-# Preparing and Preprocessing Your Data
+
+::::::::::::::::::::::::::::::::::::::: objectives
+
+- Load a test document into Spacy.
+- Learn preprocessing tasks.
+
+::::::::::::::::::::::::::::::::::::::::::::::::::
+
+:::::::::::::::::::::::::::::::::::::::: questions
+
+- How can I prepare data for NLP?
+- What are tokenization, casing and lemmatization?
+
+::::::::::::::::::::::::::::::::::::::::::::::::::
+
+## Preparing and Preprocessing Your Data
 
 ## Collection
 
@@ -25,52 +29,52 @@ During the setup instructions, we asked you to download a number of files. These
 Take a moment to orient and familiarize yourself with them:
 
 - Austen
-  - Emma - [record](https://gutenberg.org/ebooks/158#bibrec) &middot; [wiki](https://en.wikipedia.org/wiki/Emma_(novel))
-  - Lady Susan - [record](https://gutenberg.org/ebooks/946#bibrec) &middot; [wiki](https://en.wikipedia.org/wiki/Lady_Susan)
-  - Northanger Abbey - [record](https://gutenberg.org/ebooks/121#bibrec) &middot; [wiki](https://en.wikipedia.org/wiki/Northanger_Abbey)
-  - Persuasion - [record](https://www.gutenberg.org/ebooks/105#bibrec) &middot; [wiki](https://en.wikipedia.org/wiki/Persuasion_(novel))
-  - Pride and Prejudice - [record](https://gutenberg.org/ebooks/1342#bibrec) &middot; [wiki](https://en.wikipedia.org/wiki/Pride_and_Prejudice)
-  - Sense and Sensibility - [record](https://gutenberg.org/ebooks/21839#bibrec) &middot; [wiki](https://en.wikipedia.org/wiki/Sense_and_Sensibility)
+  - Emma - [record](https://gutenberg.org/ebooks/158#bibrec) · [wiki](https://en.wikipedia.org/wiki/Emma_\(novel\))
+  - Lady Susan - [record](https://gutenberg.org/ebooks/946#bibrec) · [wiki](https://en.wikipedia.org/wiki/Lady_Susan)
+  - Northanger Abbey - [record](https://gutenberg.org/ebooks/121#bibrec) · [wiki](https://en.wikipedia.org/wiki/Northanger_Abbey)
+  - Persuasion - [record](https://www.gutenberg.org/ebooks/105#bibrec) · [wiki](https://en.wikipedia.org/wiki/Persuasion_\(novel\))
+  - Pride and Prejudice - [record](https://gutenberg.org/ebooks/1342#bibrec) · [wiki](https://en.wikipedia.org/wiki/Pride_and_Prejudice)
+  - Sense and Sensibility - [record](https://gutenberg.org/ebooks/21839#bibrec) · [wiki](https://en.wikipedia.org/wiki/Sense_and_Sensibility)
 - Chesteron
-  - The Ball and the Cross - [record](https://gutenberg.org/ebooks/5265#bibrec) &middot; [wiki](https://en.wikipedia.org/wiki/The_Ball_and_the_Cross)
-  - The Innocence of Father Brown - [record](https://gutenberg.org/ebooks/204#bibrec) &middot; [wiki](https://en.wikipedia.org/wiki/Father_Brown)
-  - The Man Who Knew Too Much - [record](https://gutenberg.org/ebooks/1720#bibrec) &middot; [wiki](https://en.wikipedia.org/wiki/The_Man_Who_Knew_Too_Much_(book))
-  - The Napoleon of Notting Hill - [record](https://gutenberg.org/ebooks/20058#bibrec) &middot; [wiki](https://en.wikipedia.org/wiki/The_Napoleon_of_Notting_Hill)
-  - The Man Who was Thursday - [record](https://gutenberg.org/ebooks/1695#bibrec) &middot; [wiki](https://en.wikipedia.org/wiki/The_Man_Who_Was_Thursday)
-  - The Ballad of the White Horse - [record](https://gutenberg.org/ebooks/1719#bibrec) &middot; [wiki](https://en.wikipedia.org/wiki/The_Ballad_of_the_White_Horse)
+  - The Ball and the Cross - [record](https://gutenberg.org/ebooks/5265#bibrec) · [wiki](https://en.wikipedia.org/wiki/The_Ball_and_the_Cross)
+  - The Innocence of Father Brown - [record](https://gutenberg.org/ebooks/204#bibrec) · [wiki](https://en.wikipedia.org/wiki/Father_Brown)
+  - The Man Who Knew Too Much - [record](https://gutenberg.org/ebooks/1720#bibrec) · [wiki](https://en.wikipedia.org/wiki/The_Man_Who_Knew_Too_Much_\(book\))
+  - The Napoleon of Notting Hill - [record](https://gutenberg.org/ebooks/20058#bibrec) · [wiki](https://en.wikipedia.org/wiki/The_Napoleon_of_Notting_Hill)
+  - The Man Who was Thursday - [record](https://gutenberg.org/ebooks/1695#bibrec) · [wiki](https://en.wikipedia.org/wiki/The_Man_Who_Was_Thursday)
+  - The Ballad of the White Horse - [record](https://gutenberg.org/ebooks/1719#bibrec) · [wiki](https://en.wikipedia.org/wiki/The_Ballad_of_the_White_Horse)
 - Dickens
-  - Bleak House - [record](https://www.gutenberg.org/ebooks/1023#bibrec) &middot; [wiki](https://en.wikipedia.org/wiki/Bleak_House)
-  - A Christmas Carol - [record](https://gutenberg.org/ebooks/24022#bibrec) &middot; [wiki](https://en.wikipedia.org/wiki/A_Christmas_Carol)
-  - David Copperfield - [record](https://gutenberg.org/ebooks/766#bibrec) &middot; [wiki](https://en.wikipedia.org/wiki/David_Copperfield)
-  - Great Expectations - [record](https://gutenberg.org/ebooks/1400#bibrec) &middot; [wiki](https://en.wikipedia.org/wiki/Great_Expectations)
-  - Hard Times - [record](https://gutenberg.org/ebooks/786#bibrec) &middot; [wiki](https://en.wikipedia.org/wiki/Hard_Times_(novel))
-  - Oliver Twist - [record](https://gutenberg.org/ebooks/730#bibrec) &middot; [wiki](https://en.wikipedia.org/wiki/Oliver_Twist)
-  - Our Mutual Friend - [record](https://gutenberg.org/ebooks/883#bibrec) &middot; [wiki](https://en.wikipedia.org/wiki/Our_Mutual_Friend)
-  - The Pickwick Papers - [record](https://gutenberg.org/ebooks/580#bibrec) &middot; [wiki](https://en.wikipedia.org/wiki/The_Pickwick_Papers)
-  - A Tale of Two Cities - [record](https://gutenberg.org/ebooks/98#bibrec) &middot; [wiki](https://en.wikipedia.org/wiki/A_Tale_of_Two_Cities)
+  - Bleak House - [record](https://www.gutenberg.org/ebooks/1023#bibrec) · [wiki](https://en.wikipedia.org/wiki/Bleak_House)
+  - A Christmas Carol - [record](https://gutenberg.org/ebooks/24022#bibrec) · [wiki](https://en.wikipedia.org/wiki/A_Christmas_Carol)
+  - David Copperfield - [record](https://gutenberg.org/ebooks/766#bibrec) · [wiki](https://en.wikipedia.org/wiki/David_Copperfield)
+  - Great Expectations - [record](https://gutenberg.org/ebooks/1400#bibrec) · [wiki](https://en.wikipedia.org/wiki/Great_Expectations)
+  - Hard Times - [record](https://gutenberg.org/ebooks/786#bibrec) · [wiki](https://en.wikipedia.org/wiki/Hard_Times_\(novel\))
+  - Oliver Twist - [record](https://gutenberg.org/ebooks/730#bibrec) · [wiki](https://en.wikipedia.org/wiki/Oliver_Twist)
+  - Our Mutual Friend - [record](https://gutenberg.org/ebooks/883#bibrec) · [wiki](https://en.wikipedia.org/wiki/Our_Mutual_Friend)
+  - The Pickwick Papers - [record](https://gutenberg.org/ebooks/580#bibrec) · [wiki](https://en.wikipedia.org/wiki/The_Pickwick_Papers)
+  - A Tale of Two Cities - [record](https://gutenberg.org/ebooks/98#bibrec) · [wiki](https://en.wikipedia.org/wiki/A_Tale_of_Two_Cities)
 - Dumas
-  - The Black Tulip - [record](https://gutenberg.org/ebooks/965#bibrec) &middot; [wiki](https://en.wikipedia.org/wiki/The_Black_Tulip)
-  - The Man in the Iron Mask - [record](https://gutenberg.org/ebooks/2759#bibrec) &middot; [wiki](https://en.wikipedia.org/wiki/The_Vicomte_of_Bragelonne:_Ten_Years_Later#Part_Three:_The_Man_in_the_Iron_Mask_(Chapters_181%E2%80%93269))
-  - The Count of Monte Cristo - [record](https://www.gutenberg.org/ebooks/1184#bibrec) &middot; [wiki](https://en.wikipedia.org/wiki/The_Count_of_Monte_Cristo)
-  - Ten Years Later - [record](https://gutenberg.org/ebooks/2681#bibrec) &middot; [wiki](https://en.wikipedia.org/wiki/The_Vicomte_of_Bragelonne:_Ten_Years_Later)
-  - The Three Musketeers - [record](https://gutenberg.org/ebooks/1257#bibrec) &middot; [wiki](https://en.wikipedia.org/wiki/The_Three_Musketeers)
-  - Twenty Years After - [record](https://gutenberg.org/ebooks/1259#bibrec) &middot; [wiki](https://en.wikipedia.org/wiki/Twenty_Years_After)
+  - The Black Tulip - [record](https://gutenberg.org/ebooks/965#bibrec) · [wiki](https://en.wikipedia.org/wiki/The_Black_Tulip)
+  - The Man in the Iron Mask - [record](https://gutenberg.org/ebooks/2759#bibrec) · [wiki](https://en.wikipedia.org/wiki/The_Vicomte_of_Bragelonne:_Ten_Years_Later#Part_Three:_The_Man_in_the_Iron_Mask_\(Chapters_181%E2%80%93269\))
+  - The Count of Monte Cristo - [record](https://www.gutenberg.org/ebooks/1184#bibrec) · [wiki](https://en.wikipedia.org/wiki/The_Count_of_Monte_Cristo)
+  - Ten Years Later - [record](https://gutenberg.org/ebooks/2681#bibrec) · [wiki](https://en.wikipedia.org/wiki/The_Vicomte_of_Bragelonne:_Ten_Years_Later)
+  - The Three Musketeers - [record](https://gutenberg.org/ebooks/1257#bibrec) · [wiki](https://en.wikipedia.org/wiki/The_Three_Musketeers)
+  - Twenty Years After - [record](https://gutenberg.org/ebooks/1259#bibrec) · [wiki](https://en.wikipedia.org/wiki/Twenty_Years_After)
 - Melville
-  - Bartleby, the Scrivener - [record](https://gutenberg.org/ebooks/11231#bibrec) &middot; [wiki](https://en.wikipedia.org/wiki/Bartleby,_the_Scrivener)
-  - The Confidence-Man - [record](https://www.gutenberg.org/ebooks/21816) &middot; [wiki](https://en.wikipedia.org/wiki/The_Confidence-Man)
-  - Moby Dick - [record](https://gutenberg.org/ebooks/2701#bibrec) &middot; [wiki](https://en.wikipedia.org/wiki/Moby-Dick)
-  - Omoo - [record](https://gutenberg.org/ebooks/4045#bibrec) &middot; [wiki](https://en.wikipedia.org/wiki/Omoo)
-  - The Piazza Tales - [record](https://gutenberg.org/ebooks/15859#bibrec) &middot; [wiki](https://en.wikipedia.org/wiki/The_Piazza_Tales)
-  - Pierre - [record](https://gutenberg.org/ebooks/34970#bibrec) &middot; [wiki](https://en.wikipedia.org/wiki/Pierre;_or,_The_Ambiguities)
-  - Typee - [record](https://gutenberg.org/ebooks/1900#bibrec) &middot; [wiki](https://en.wikipedia.org/wiki/Typee)
+  - Bartleby, the Scrivener - [record](https://gutenberg.org/ebooks/11231#bibrec) · [wiki](https://en.wikipedia.org/wiki/Bartleby,_the_Scrivener)
+  - The Confidence-Man - [record](https://www.gutenberg.org/ebooks/21816) · [wiki](https://en.wikipedia.org/wiki/The_Confidence-Man)
+  - Moby Dick - [record](https://gutenberg.org/ebooks/2701#bibrec) · [wiki](https://en.wikipedia.org/wiki/Moby-Dick)
+  - Omoo - [record](https://gutenberg.org/ebooks/4045#bibrec) · [wiki](https://en.wikipedia.org/wiki/Omoo)
+  - The Piazza Tales - [record](https://gutenberg.org/ebooks/15859#bibrec) · [wiki](https://en.wikipedia.org/wiki/The_Piazza_Tales)
+  - Pierre - [record](https://gutenberg.org/ebooks/34970#bibrec) · [wiki](https://en.wikipedia.org/wiki/Pierre;_or,_The_Ambiguities)
+  - Typee - [record](https://gutenberg.org/ebooks/1900#bibrec) · [wiki](https://en.wikipedia.org/wiki/Typee)
 - Shakespeare
-  - The Trajedy of Julius Caesar - [record](https://gutenberg.org/ebooks/1120#bibrec) &middot; [wiki](https://en.wikipedia.org/wiki/Julius_Caesar_(play))
-  - The Trajedy of King Lear - [record](https://gutenberg.org/ebooks/1532#bibrec) &middot; [wiki](https://en.wikipedia.org/wiki/King_Lear)
-  - A Midsummer Night's Dream - [record](https://gutenberg.org/ebooks/1514#bibrec) &middot; [wiki](https://en.wikipedia.org/wiki/A_Midsummer_Night%27s_Dream)
-  - Much Ado about Nothing - [record](https://gutenberg.org/ebooks/1519#bibrec) &middot; [wiki](https://en.wikipedia.org/wiki/Much_Ado_About_Nothing)
-  - Othello, the Moor of Venice - [record](https://www.gutenberg.org/ebooks/1531) &middot; [wiki](https://en.wikipedia.org/wiki/Othello)
-  - Romeo and Juliet - [record](https://gutenberg.org/ebooks/1513#bibrec) &middot; [wiki](https://en.wikipedia.org/wiki/Romeo_and_Juliet)
-  - Twelfth Night - [record](https://gutenberg.org/ebooks/1526#bibrec) &middot; [wiki](https://en.wikipedia.org/wiki/Twelfth_Night)
+  - The Trajedy of Julius Caesar - [record](https://gutenberg.org/ebooks/1120#bibrec) · [wiki](https://en.wikipedia.org/wiki/Julius_Caesar_\(play\))
+  - The Trajedy of King Lear - [record](https://gutenberg.org/ebooks/1532#bibrec) · [wiki](https://en.wikipedia.org/wiki/King_Lear)
+  - A Midsummer Night's Dream - [record](https://gutenberg.org/ebooks/1514#bibrec) · [wiki](https://en.wikipedia.org/wiki/A_Midsummer_Night%27s_Dream)
+  - Much Ado about Nothing - [record](https://gutenberg.org/ebooks/1519#bibrec) · [wiki](https://en.wikipedia.org/wiki/Much_Ado_About_Nothing)
+  - Othello, the Moor of Venice - [record](https://www.gutenberg.org/ebooks/1531) · [wiki](https://en.wikipedia.org/wiki/Othello)
+  - Romeo and Juliet - [record](https://gutenberg.org/ebooks/1513#bibrec) · [wiki](https://en.wikipedia.org/wiki/Romeo_and_Juliet)
+  - Twelfth Night - [record](https://gutenberg.org/ebooks/1526#bibrec) · [wiki](https://en.wikipedia.org/wiki/Twelfth_Night)
 
 While a full-sized corpus can include thousands of texts, these forty-odd texts will be enough for our illustrative purposes.
 
@@ -93,7 +97,7 @@ import sys
 sys.path.insert(0, wksp_dir)
 ```
 
-Next, we have a corpus of text files we want to analyze. Let's create a method to list those files. To make this method more flexible, we will also use ```glob``` to allow us to put in regular expressions so we can filter the files if so desired. ```glob``` is a tool for listing files in a directory whose file names match some pattern, like all files ending in ```*.txt```.
+Next, we have a corpus of text files we want to analyze. Let's create a method to list those files. To make this method more flexible, we will also use `glob` to allow us to put in regular expressions so we can filter the files if so desired. `glob` is a tool for listing files in a directory whose file names match some pattern, like all files ending in `*.txt`.
 
 ```python
 !pip install pathlib parse
@@ -112,7 +116,7 @@ def create_file_list(directory, filter_str='*'):
   return files_to_analyze
 ```
 
-Alternatively, we can load this function from the ```helpers.py``` file we provided for learners in this course:
+Alternatively, we can load this function from the `helpers.py` file we provided for learners in this course:
 
 ```python
 from helpers import create_file_list
@@ -174,12 +178,11 @@ Across the texts in our corpus, our authors write with different styles, preferr
 
 To prepare our data to be more uniformly understood by our NLP models, we need to (a) break it into smaller units, (b) replace words with their roots, and (c) remove unwanted common or unhelpful words and punctuation. These steps encompass the preprocessing stage of the interpretive loop.
 
-![The Interpretive Loop](../images/01-Interpretive_Loop.JPG)
-
+![](fig/01-Interpretive_Loop.JPG){alt='The Interpretive Loop'}
 
 ### Tokenization
 
-Tokenization is the process of breaking down texts (strings of characters) into words, groups of words, and sentences. A string of characters needs to be understood by a program as smaller units so that it can be embedded. These are called **tokens**.  
+Tokenization is the process of breaking down texts (strings of characters) into words, groups of words, and sentences. A string of characters needs to be understood by a program as smaller units so that it can be embedded. These are called **tokens**.
 
 While our tokens will be single words for now, this will not always be the case. Different models have different ways of tokenizing strings. The strings may be broken down into multiple word tokens, single word tokens, or even components of words like letters or morphology. Punctuation may or may not be included.
 
@@ -533,7 +536,7 @@ class Our_Tokenizer:
 
 While we can manually add Emma to our stopword list, it may occur to you that novels are filled with characters with unique and unpredictable names. We've already missed the word "Woodhouse" from our list. Creating an enumerated list of all of the possible character names seems impossible.
 
-One way we might address this problem is by using **Parts of speech (POS)** tagging. POS are things such as nouns, verbs, and adjectives. POS tags often prove useful, so some tokenizers also have built in POS tagging done. Spacy is one such library. These tags are not 100% accurate, but they are a great place to start. Spacy's POS tags can be used by accessing the ```pos_``` method for each token.
+One way we might address this problem is by using **Parts of speech (POS)** tagging. POS are things such as nouns, verbs, and adjectives. POS tags often prove useful, so some tokenizers also have built in POS tagging done. Spacy is one such library. These tags are not 100% accurate, but they are a great place to start. Spacy's POS tags can be used by accessing the `pos_` method for each token.
 
 ```python
 for token in tokens:
@@ -673,11 +676,12 @@ lemma_file_list = lemmatize_files(tokenizer, corpus_file_list)
 ```txt
 ['/content/drive/My Drive/Colab Notebooks/text-analysis/data/books/dickens-olivertwist.txt.lemmas', '/content/drive/My Drive/Colab Notebooks/text-analysis/data/books/chesterton-knewtoomuch.txt.lemmas', '/content/drive/My Drive/Colab Notebooks/text-analysis/data/books/dumas-tenyearslater.txt.lemmas', '/content/drive/My Drive/Colab Notebooks/text-analysis/data/books/dumas-twentyyearsafter.txt.lemmas', '/content/drive/My Drive/Colab Notebooks/text-analysis/data/books/austen-pride.txt.lemmas', '/content/drive/My Drive/Colab Notebooks/text-analysis/data/books/dickens-taleoftwocities.txt.lemmas', '/content/drive/My Drive/Colab Notebooks/text-analysis/data/books/chesterton-whitehorse.txt.lemmas', '/content/drive/My Drive/Colab Notebooks/text-analysis/data/books/dickens-hardtimes.txt.lemmas', '/content/drive/My Drive/Colab Notebooks/text-analysis/data/books/austen-emma.txt.lemmas', '/content/drive/My Drive/Colab Notebooks/text-analysis/data/books/chesterton-thursday.txt.lemmas', '/content/drive/My Drive/Colab Notebooks/text-analysis/data/books/dumas-threemusketeers.txt.lemmas', '/content/drive/My Drive/Colab Notebooks/text-analysis/data/books/chesterton-ball.txt.lemmas', '/content/drive/My Drive/Colab Notebooks/text-analysis/data/books/austen-ladysusan.txt.lemmas', '/content/drive/My Drive/Colab Notebooks/text-analysis/data/books/austen-persuasion.txt.lemmas', '/content/drive/My Drive/Colab Notebooks/text-analysis/data/books/melville-conman.txt.lemmas', '/content/drive/My Drive/Colab Notebooks/text-analysis/data/books/chesterton-napoleon.txt.lemmas', '/content/drive/My Drive/Colab Notebooks/text-analysis/data/books/chesterton-brown.txt.lemmas', '/content/drive/My Drive/Colab Notebooks/text-analysis/data/books/dumas-maninironmask.txt.lemmas', '/content/drive/My Drive/Colab Notebooks/text-analysis/data/books/dumas-blacktulip.txt.lemmas', '/content/drive/My Drive/Colab Notebooks/text-analysis/data/books/dickens-greatexpectations.txt.lemmas', '/content/drive/My Drive/Colab Notebooks/text-analysis/data/books/dickens-ourmutualfriend.txt.lemmas', '/content/drive/My Drive/Colab Notebooks/text-analysis/data/books/austen-sense.txt.lemmas', '/content/drive/My Drive/Colab Notebooks/text-analysis/data/books/dickens-christmascarol.txt.lemmas', '/content/drive/My Drive/Colab Notebooks/text-analysis/data/books/dickens-davidcopperfield.txt.lemmas', '/content/drive/My Drive/Colab Notebooks/text-analysis/data/books/dickens-pickwickpapers.txt.lemmas', '/content/drive/My Drive/Colab Notebooks/text-analysis/data/books/melville-bartleby.txt.lemmas', '/content/drive/My Drive/Colab Notebooks/text-analysis/data/books/dickens-bleakhouse.txt.lemmas', '/content/drive/My Drive/Colab Notebooks/text-analysis/data/books/dumas-montecristo.txt.lemmas', '/content/drive/My Drive/Colab Notebooks/text-analysis/data/books/austen-northanger.txt.lemmas', '/content/drive/My Drive/Colab Notebooks/text-analysis/data/books/melville-moby_dick.txt.lemmas', '/content/drive/My Drive/Colab Notebooks/text-analysis/data/books/shakespeare-twelfthnight.txt.lemmas', '/content/drive/My Drive/Colab Notebooks/text-analysis/data/books/melville-typee.txt.lemmas', '/content/drive/My Drive/Colab Notebooks/text-analysis/data/books/shakespeare-romeo.txt.lemmas', '/content/drive/My Drive/Colab Notebooks/text-analysis/data/books/melville-omoo.txt.lemmas', '/content/drive/My Drive/Colab Notebooks/text-analysis/data/books/melville-piazzatales.txt.lemmas', '/content/drive/My Drive/Colab Notebooks/text-analysis/data/books/shakespeare-muchado.txt.lemmas', '/content/drive/My Drive/Colab Notebooks/text-analysis/data/books/shakespeare-midsummer.txt.lemmas', '/content/drive/My Drive/Colab Notebooks/text-analysis/data/books/shakespeare-lear.txt.lemmas', '/content/drive/My Drive/Colab Notebooks/text-analysis/data/books/melville-pierre.txt.lemmas', '/content/drive/My Drive/Colab Notebooks/text-analysis/data/books/shakespeare-caesar.txt.lemmas', '/content/drive/My Drive/Colab Notebooks/text-analysis/data/books/shakespeare-othello.txt.lemmas']
 ```
+
 This process may take several minutes to run. Doing this preprocessing now however will save us much, much time later.
 
 ## Saving Our Progress
 
-Let's save our progress by storing a spreadsheet (```*.csv``` or ```*.xlsx``` file) that lists all our authors, books, and associated filenames, both the original and lemmatized copies.
+Let's save our progress by storing a spreadsheet (`*.csv` or `*.xlsx` file) that lists all our authors, books, and associated filenames, both the original and lemmatized copies.
 
 We'll use another helper we prepared to make this easy:
 
@@ -699,3 +703,14 @@ data.to_csv("/content/drive/My Drive/Colab Notebooks/text-analysis/data/data.csv
 This lesson has covered a number of preprocessing steps. We created a list of our files in our corpus, which we can use in future lessons. We customized a tokenizer from Spacy, to better suit the needs of our corpus, which we can also use moving forward.
 
 Next lesson, we will start talking about the concepts behind our model.
+
+:::::::::::::::::::::::::::::::::::::::: keypoints
+
+- Tokenization breaks strings into smaller parts for analysis.
+- Casing removes capital letters.
+- Stopwords are common words that do not contain much useful information.
+- Lemmatization reduces words to their root form.
+
+::::::::::::::::::::::::::::::::::::::::::::::::::
+
+

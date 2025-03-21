@@ -1,24 +1,30 @@
 ---
-title: "Vector Space and Distance"
+title: Vector Space and Distance
 teaching: 20
 exercises: 20
-questions:
-- "How can we model documents effectively?"
-- "How can we measure similarity between documents?"
-- "What's the difference between cosine similarity and distance?"
-objectives:
-- "Visualize vector space in a 2D model."
-- "Learn about embeddings."
-- "Learn about cosine similarity and distance."
-keypoints:
-- "We model documents by plotting them in high dimensional space."
-- "Distance is highly dependent on document length."
-- "Documents are modeled as vectors so cosine similarity can be used as a similarity metric."
 ---
-# Vector Space
+
+::::::::::::::::::::::::::::::::::::::: objectives
+
+- Visualize vector space in a 2D model.
+- Learn about embeddings.
+- Learn about cosine similarity and distance.
+
+::::::::::::::::::::::::::::::::::::::::::::::::::
+
+:::::::::::::::::::::::::::::::::::::::: questions
+
+- How can we model documents effectively?
+- How can we measure similarity between documents?
+- What's the difference between cosine similarity and distance?
+
+::::::::::::::::::::::::::::::::::::::::::::::::::
+
+## Vector Space
+
 Now that we've preprocessed our data, let's move to the next step of the interpretative loop: *generating a text embedding*.
 
-![The Interpretive Loop](../images/01-Interpretive_Loop.JPG)
+![](fig/01-Interpretive_Loop.JPG){alt='The Interpretive Loop'}
 
 Many NLP models make use of a concept called Vector Space. The concept works like this:
 
@@ -44,12 +50,12 @@ We will start by embedding words using a "one hot" embedding algorithm. Each doc
 
 How does this corpus look in vector space? We can display our model using a **document-term matrix**, which looks like the following:
 
-| Document   | to      | be |
-| ---------- | ----------- | ----------- |
-| Document A | 1 | 10 |
-| Document B | 8 | 8 |
-| Document C | 2 | 2 |
-| Document D | 2 | 2 |
+| Document   | to  | be  | 
+| ---------- | --- | --- |
+| Document A | 1   | 10  | 
+| Document B | 8   | 8   | 
+| Document C | 2   | 2   | 
+| Document D | 2   | 2   | 
 
 Notice that documents C and D are represented exactly the same. This is unavoidable right now because of our "bag of words" assumption, but much later on we will try to represent positions of words in our models as well. Let's visualize this using Python.
 
@@ -99,7 +105,7 @@ plt.ylim(0, 12)
 plt.show()
 ```
 
-![png](../images/02-plot-points.png)
+![](fig/02-plot-points.png){alt='png'}
 
 ### Distance and Similarity
 
@@ -160,7 +166,7 @@ plt.ylim(0, 12)
 plt.show()
 ```
 
-![png](../images/02-plot-vectors.png)
+![](fig/02-plot-vectors.png){alt='png'}
 
 Document A and document D are headed in exactly the same direction, which matches our intution that both documents are in some way similar to each other, even though they differ in length.
 
@@ -193,14 +199,14 @@ If we want to add another word to our model, we can add another dimension, which
 - E: be or not be
 - F: to be or not to be
 
-| Document | to | be | or | not |
-| ---------- | ----------- | ----------- | ----------- | ----------- |
-| Document A | 1 | 10 | 0 | 0
-| Document B | 8 | 8 | 0 | 0
-| Document C | 2 | 2 | 0 | 0
-| Document D | 2 | 2 | 0 | 0
-| Document E | 0 | 2 | 1 | 1
-| Document F | 2 | 2 | 1 | 1
+| Document   | to  | be  | or  | not | 
+| ---------- | --- | --- | --- | --- |
+| Document A | 1   | 10  | 0   | 0   | 
+| Document B | 8   | 8   | 0   | 0   | 
+| Document C | 2   | 2   | 0   | 0   | 
+| Document D | 2   | 2   | 0   | 0   | 
+| Document E | 0   | 2   | 1   | 1   | 
+| Document F | 2   | 2   | 1   | 1   | 
 
 We can keep adding dimensions for however many words we want to add. It's easy to imagine vector space with two or three dimensions, but visualizing this mentally will rapidly become downright impossible as we add more and more words. Vocabularies for natural languages can easily reach tens of thousands of words.
 
@@ -259,3 +265,13 @@ This is the essence of vector space modeling: documents are embedded as vectors 
 How we define these dimensions and the methods for feature extraction may change and become more complex, but the essential idea remains the same.
 
 Next, we will discuss TF-IDF, which balances the above "bag of words" approach against the fact that some words are more or less interesting: *whale* conveys more useful information than *the*, for example.
+
+:::::::::::::::::::::::::::::::::::::::: keypoints
+
+- We model documents by plotting them in high dimensional space.
+- Distance is highly dependent on document length.
+- Documents are modeled as vectors so cosine similarity can be used as a similarity metric.
+
+::::::::::::::::::::::::::::::::::::::::::::::::::
+
+
