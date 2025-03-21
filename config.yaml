@@ -33,7 +33,7 @@ life_cycle: 'pre-alpha'
 license: 'CC-BY 4.0'
 
 # Link to the source repository for this lesson
-source: 'https://github.com/fishtree-attempt/python-text-analysis/'
+source: 'https://github.com/josenino95/python-text-analysis'
 
 # Default branch of your lesson
 branch: 'main'
@@ -93,7 +93,6 @@ profiles:
 
 
 carpentry_description: Lesson Description
-url: https://preview.carpentries.org/python-text-analysis
+url: 'https://josenino95.github.io/python-text-analysis'
 analytics: carpentries
 lang: en
-workbench-beta: yes
